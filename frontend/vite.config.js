@@ -1,16 +1,18 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-// https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [react()],
-	server: {
-		proxy: {
-			"/api": {
-				target: "http://localhost:5000",
-			},
-		},
-	},
+  plugins: [react()],
+  define: {
+    "process.env": process.env, // keep if you're using .env variables
+  },
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:5000", // Replace with your backend URL/port
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 });
-
-// if you visit this http://localhost:5000 just proxy it don't give any error
